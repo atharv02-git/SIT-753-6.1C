@@ -14,6 +14,18 @@ pipeline {
                 }
             }
         }
+        // Stage 3: Test
+        stage('Test'){
+            steps {
+                echo 'Testing...'
+            }
+        }
+        // Stage4: Deploying
+        stage('Deploy'){
+            steps{
+                echo 'deploying...'
+            }
+        }
     }
 }
 
