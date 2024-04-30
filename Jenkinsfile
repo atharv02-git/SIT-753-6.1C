@@ -29,6 +29,8 @@ pipeline {
                     subject: 'Test Stage Email',
                     body: 'Stage 1: Build and Stage 2: Test is successfull'
                 }
+            }
+            post {
                 failure {
                     mail to: 'atharvsbhandare@gmail.com',
                     subject: 'Test Stage Email',
@@ -49,18 +51,20 @@ pipeline {
                 echo 'Security scan help identify vulnerablities, weaknesses, and other security risks in codebases.'
                 echo 'Veracode: A type of scan which analyzes source code for security vulnerabilities without executing the code. It identifies common security flaws like SQL injection, cross-site scripting (XSS), and hardcoded secrets.'
             }
-            post {
+            post{
                 success {
                     mail to: 'atharvsbhandare@gmail.com',
                     subject: 'Test Stage Email',
                     body: 'Stage 1: Build, Stage 2:, stage 3: Code Analysis, stage 4: Security Scan is successfull'
                 }
+            }
+            post{
                 failure {
                     mail to: 'atharvsbhandare@gmail.com',
                     subject: 'Test Stage Email',
                     body: 'Stage 1: Build, Stage 2:, stage 3: Code Analysis, stage 4: Security Scan is unsuccessfull'
                 }
-            }
+            } 
         }
         // Stage5: Deploying
         stage('Deploy to staging'){
@@ -77,9 +81,11 @@ pipeline {
             }
         }
         // Stage 7: Deploy to production:
-        stage{'Deploy to production'}
-            echo 'Deploy the application to production server from staging server.'
-            echo 'The same AWS EC2 instance can be used to deploy to the production server.'
+        stage{'Deploy to production'}{
+            steps{
+                echo 'Deploy the application to production server from staging server.'
+                echo 'The same AWS EC2 instance can be used to deploy to the production server.'
+            } 
     }
 }
 
