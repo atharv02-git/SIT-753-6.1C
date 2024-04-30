@@ -1,6 +1,6 @@
 pipeline {
     agent any
-// Stages goes here
+    // Stages wrote here
         stages {
             // Stage 1: Build
             stage('Build') {
