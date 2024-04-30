@@ -81,7 +81,7 @@ pipeline {
                 }
             }
             // Stage 7: Deploy to production:
-            stage { 'Deploy to production' } {
+            stage ('Deploy to production') {
                 steps {
                     echo 'Deploy the application to production server from staging server.'
                     echo 'The same AWS EC2 instance can be used to deploy to the production server.'
