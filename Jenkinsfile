@@ -23,16 +23,18 @@ pipeline {
                 }
                 post {
                     success {
-                        mail to: 'atharvsbhandare@gmail.com',
-                        subject: 'Test Stage Email',
-                        body: 'Stage 1: Build and Stage 2: Test is successfull',
-                        attachLog: true // Attach the build log
+                        emailext{
+                            to: 'atharvsbhandare@gmail.com',
+                            subject: 'Test Stage Email',
+                            body: 'Stage 1: Build and Stage 2: Test is successfull',
+                            attachLog: true // Attach the build log
+                        }
                     }
                     failure {
                         mail to: 'atharvsbhandare@gmail.com',
                         subject: 'Test Stage Email',
                         body: 'Stage 1: Build and Stage 2: Test is unsuccessfull',
-                        attachLog: true // Attach the build log
+                        // attachLog: true // Attach the build log
                     }
                 }
             }
@@ -55,10 +57,12 @@ pipeline {
                 }
                 post {
                     success {
-                        mail to: 'atharvsbhandare@gmail.com',
-                        subject: 'Test Stage Email',
-                        body: 'Build, Test, Code Analysis, Security Scan is successfull',
-                        attachLog: true // Attach the build log
+                        emailext{
+                            to: 'atharvsbhandare@gmail.com',
+                            subject: 'Test Stage Email',
+                            body: 'Build, Test, Code Analysis, Security Scan is successfull',
+                            attachLog: true // Attach the build log
+                        }
                     }
                     failure {
                         mail to: 'atharvsbhandare@gmail.com',
