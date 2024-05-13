@@ -1,11 +1,6 @@
 pipeline {
     agent any
     
-    // Define recipient email address
-    environment {
-        NOTIFY_EMAIL = 'atharvsbhandare@gmail.com'
-    }
-
     stages {
         // Stage 1: Build
         stage('Build') {
@@ -30,7 +25,7 @@ pipeline {
             post {
                 success {
                     emailext (
-                        to: env.NOTIFY_EMAIL,
+                        to: 'atharvsbhandare@gmail.com',
                         subject: 'Test Stage Email',
                         body: 'Stage 1: Build and Stage 2: Test is successful',
                         attachLog: true // Attach the build log
@@ -38,7 +33,7 @@ pipeline {
                 }
                 failure {
                     emailext (
-                        to: env.NOTIFY_EMAIL,
+                        to: 'atharvsbhandare@gmail.com',
                         subject: 'Test Stage Email',
                         body: 'Stage 1: Build and Stage 2: Test is unsuccessful',
                         attachLog: true // Attach the build log
@@ -68,7 +63,7 @@ pipeline {
             post {
                 success {
                     emailext (
-                        to: env.NOTIFY_EMAIL,
+                        to: 'atharvsbhandare@gmail.com',
                         subject: 'Test Stage Email',
                         body: 'Build, Test, Code Analysis, Security Scan is successful',
                         attachLog: true // Attach the build log
@@ -76,7 +71,7 @@ pipeline {
                 }
                 failure {
                     emailext (
-                        to: env.NOTIFY_EMAIL,
+                        to: 'atharvsbhandare@gmail.com',
                         subject: 'Test Stage Email',
                         body: 'Build, Test, Code Analysis, Security Scan is unsuccessful',
                         attachLog: true // Attach the build log
