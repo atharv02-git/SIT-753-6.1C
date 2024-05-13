@@ -56,14 +56,16 @@ pipeline {
                 }
                 post {
                     success {
-                        mail to: 'atharvsbhandare@gmail.com',
-                        subject: 'Test Stage Email',
-                        body: 'Build, Test, Code Analysis, Security Scan is successfull'
+                        emailext to: 'atharvsbhandare@gmail.com',
+                            subject: 'Test Stage Email',
+                            body: 'Build, Test, Code Analysis, Security Scan is successfull',
+                            attachLog: true
                     }
                     failure {
-                        mail to: 'atharvsbhandare@gmail.com',
-                        subject: 'Test Stage Email',
-                        body: 'Build, Test, Code Analysis, Security Scan is unsuccessfull'
+                        emailext to: 'atharvsbhandare@gmail.com',
+                            subject: 'Test Stage Email',
+                            body: 'Build, Test, Code Analysis, Security Scan is unsuccessfull',
+                            attachLog: true
                     }
                 }
             }
