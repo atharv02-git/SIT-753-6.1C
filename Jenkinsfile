@@ -25,12 +25,14 @@ pipeline {
                     success {
                         mail to: 'atharvsbhandare@gmail.com',
                         subject: 'Test Stage Email',
-                        body: 'Stage 1: Build and Stage 2: Test is successfull'
+                        body: 'Stage 1: Build and Stage 2: Test is successfull',
+                        attachLog: true 
                     }
                     failure {
                         mail to: 'atharvsbhandare@gmail.com',
                         subject: 'Test Stage Email',
-                        body: 'Stage 1: Build and Stage 2: Test is unsuccessfull'
+                        body: 'Stage 1: Build and Stage 2: Test is unsuccessfull',
+                        attachLog: true 
                     }
                 }
             }
@@ -55,12 +57,14 @@ pipeline {
                     success {
                         mail to: 'atharvsbhandare@gmail.com',
                         subject: 'Test Stage Email',
-                        body: 'Build, Test, Code Analysis, Security Scan is successfull'
+                        body: 'Build, Test, Code Analysis, Security Scan is successfull',
+                        attachLog: true
                     }
                     failure {
                         mail to: 'atharvsbhandare@gmail.com',
                         subject: 'Test Stage Email',
-                        body: 'Build, Test, Code Analysis, Security Scan is unsuccessfull'
+                        body: 'Build, Test, Code Analysis, Security Scan is unsuccessfull',
+                        attachLog: true
                     }
                 }
             }
@@ -86,6 +90,11 @@ pipeline {
                     echo 'Deploy the application to production server from staging server.'
                     echo 'The same AWS EC2 instance can be used to deploy to the production server.'
                 }
+        }
+    }
+    post {
+        always {
+            emailext attachLog: true, body: "Build Log is attached.", subject: "Build Log", to: "atharvsbhandare@gmail.com"
         }
     }
 }
