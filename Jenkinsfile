@@ -23,14 +23,17 @@ pipeline {
                 }
                 post {
                     success {
-                        mail to: 'atharvsbhandare@gmail.com',
-                        subject: 'Test Stage Email',
-                        body: 'Stage 1: Build and Stage 2: Test is successfull'
+                        emailext to: 'atharvsbhandare@gmail.com',
+                            subject: 'Test Stage Email',
+                            body: 'Stage 1: Build and Stage 2: Test is successfull',
+                            attachLog: true
+                        
                     }
                     failure {
-                        mail to: 'atharvsbhandare@gmail.com',
-                        subject: 'Test Stage Email',
-                        body: 'Stage 1: Build and Stage 2: Test is unsuccessfull'
+                        emailext to: 'atharvsbhandare@gmail.com',
+                            subject: 'Test Stage Email',
+                            body: 'Stage 1: Build and Stage 2: Test is unsuccessfull',
+                            attachLog: true
                     }
                 }
             }
