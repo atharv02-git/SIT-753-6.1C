@@ -23,16 +23,14 @@ pipeline {
                 }
                 post {
                     success {
-                            mail to: 'atharvsbhandare@gmail.com',
-                            subject: 'Test Stage Email',
-                            body: 'Stage 1: Build and Stage 2: Test is successfull',
-                            attachLog to: true
+                        mail to: 'atharvsbhandare@gmail.com',
+                        subject: 'Test Stage Email',
+                        body: 'Stage 1: Build and Stage 2: Test is successfull'
                     }
                     failure {
-                        emailext to: 'atharvsbhandare@gmail.com',
-                            subject: 'Test Stage Email',
-                            body: 'Stage 1: Build and Stage 2: Test is unsuccessfull',
-                            attachLog: true
+                        mail to: 'atharvsbhandare@gmail.com',
+                        subject: 'Test Stage Email',
+                        body: 'Stage 1: Build and Stage 2: Test is unsuccessfull'
                     }
                 }
             }
@@ -55,16 +53,14 @@ pipeline {
                 }
                 post {
                     success {
-                        emailext to: 'atharvsbhandare@gmail.com',
-                            subject: 'Test Stage Email',
-                            body: 'Build, Test, Code Analysis, Security Scan is successfull',
-                            attachLog: true
+                        mail to: 'atharvsbhandare@gmail.com',
+                        subject: 'Test Stage Email',
+                        body: 'Build, Test, Code Analysis, Security Scan is successfull'
                     }
                     failure {
-                        emailext to: 'atharvsbhandare@gmail.com',
-                            subject: 'Test Stage Email',
-                            body: 'Build, Test, Code Analysis, Security Scan is unsuccessfull',
-                            attachLog: true
+                        mail to: 'atharvsbhandare@gmail.com',
+                        subject: 'Test Stage Email',
+                        body: 'Build, Test, Code Analysis, Security Scan is unsuccessfull'
                     }
                 }
             }
