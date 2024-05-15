@@ -19,7 +19,7 @@ pipeline {
 
                 script {
                     def logFilePathNew = "${env.WORKSPACE}\\test-output.log"
-                    bat """
+                    sh """
                         echo Starting unit testing using JUnit... > ${logFilePathNew}
                         echo Testing the feature working... >> ${logFilePathNew}
                         echo Unit testing completed and no issues found >> ${logFilePathNew}
@@ -63,7 +63,7 @@ pipeline {
 
                 script {
                     def logFilePathSecurity = "${env.WORKSPACE}\\security-output.log"
-                    bat """
+                    sh """
                         echo Starting security scan using Veracode... > ${logFilePathSecurity}
                         echo Checking for SQL injection, XSS, and hardcoded secrets... >> ${logFilePathSecurity}
                         echo Security scan completed. No critical issues found. >> ${logFilePathSecurity}
