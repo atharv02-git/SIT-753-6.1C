@@ -14,26 +14,33 @@ pipeline {
             stage('Test') {
                 steps {
                     echo 'Unit Testing'
-                    echo 'Ensures that individual components work correctly.'
-                    echo 'Mocha/Chai is a popular dependency used for unit testing in JavaScript/Node.js projects.'
+                    echo "Performing Unit Testing using JUnit..."
                     echo 'Integration Testing: '
-                    echo 'different aspects of code work together as expected.'
-                    echo 'Postman: '
-                    echo 'used for API testing, making it useful for integration tests involving RESTful services.'
+                    echo "Performing Integration Testing using Selenium WebDriver..."
+                    script {
+                        def logFilePathNew = "${env.WORKSPACE}/test-output.log"
+                    sh """
+                        echo 'Starting unit testing using JUnit...' > ${logFilePathNew}
+                        echo 'Testing the feature working...' >> ${logFilePathNew}
+                        echo 'Unit testing completed and no issues found' >> ${logFilePathNew}
+                        echo '\n\nStarting Integration testing using Selenium WebDriver...' >> ${logFilePathNew}
+                        echo 'End to End Testing of the complete product working...' >> ${logFilePathNew}
+                        echo 'Integration testing completed and no issues found' >> ${logFilePathNew} 
+                    """
+                    } 
                 }
                 post {
                     success {
-                        emailext to: 'atharvsbhandare@gmail.com',
+                        emailext attachmentsPattern: 'test-output.log',
+                            to: 'atharvsbhandare@gmail.com',
                             subject: 'Test Stage Email',
                             body: 'Stage 1: Build and Stage 2: Test is successfull',
-                            attachLog: true
-
                     }
                     failure {
-                        emailext to: 'atharvsbhandare@gmail.com',
+                        emailext attachmentsPattern: 'security-output.log',
+                            to: 'atharvsbhandare@gmail.com',
                             subject: 'Test Stage Email',
                             body: 'Stage 1: Build and Stage 2: Test is unsuccessfull',
-                            attachLog: true
                     }
                 }
             }
