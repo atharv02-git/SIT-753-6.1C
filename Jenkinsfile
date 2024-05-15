@@ -1,111 +1,62 @@
 pipeline {
     agent any
-
+    environment {
+        DIRECTORY_PATH = '/path'
+        TESTING_ENVIRONMENT = 'test_environment'
+        PRODUCTION_ENVIRONMENT = 'production_environment'
+    }
     stages {
         stage('Build') {
             steps {
-                echo 'Build task is a stage where code is compiled into an executable format.'
-                echo 'Maven Tool:'
-                echo 'Automation tool for Java projects that manages dependencies, compiles code, runs tests.'
+                echo 'fetch the source code from the directory path: $DIRECTORY_PATH..'
+                echo 'Is where the codes and configurations are developed'
             }
         }
-
-        stage('Test') {
+        stage('Unit and Integration Tests') {
             steps {
-                echo 'Unit Testing'
-                echo "Performing Unit Testing using JUnit..."
-                echo 'Integration Testing:'
-                echo "Performing Integration Testing using Selenium WebDriver..."
-
-                script {
-                    def logFilePathNew = "${env.WORKSPACE}/test-output.log"
-                    bat """
-                        echo Starting unit testing using JUnit... > ${logFilePathNew}
-                        echo Testing the feature working... >> ${logFilePathNew}
-                        echo Unit testing completed and no issues found >> ${logFilePathNew}
-                        echo \\n\\nStarting Integration testing using Selenium WebDriver... >> ${logFilePathNew}
-                        echo End to End Testing of the complete product working... >> ${logFilePathNew}
-                        echo Integration testing completed and no issues found >> ${logFilePathNew}
-                    """
-                }
+                echo 'unit tests is to check that your code works as expected'
+                echo 'integration testing involves evaluating how your software interacts with other software or functions, ensuring that it works well         in conjunction with them'
             }
             post {
                 success {
-                    emailext attachmentsPattern: 'test-output.log',
-                        to: 'atharvbhandare2001@gmail.com',
-                        subject: 'Test Stage Email',
-                        body: 'Stage 1: Build and Stage 2: Test is successful'
-                }
-                failure {
-                    emailext attachmentsPattern: 'test-output.log',
-                        to: 'atharvbhandare2001@gmail.com',
-                        subject: 'Test Stage Email',
-                        body: 'Stage 1: Build and Stage 2: Test is unsuccessful'
+                    emailext(
+    attachLog: true,
+    subject: 'Unit and Integration Tests Status Email',
+    body: 'Unit and Integration Tests was successful!',
+    to: 'atharvsbhandare@gmail.com'
+    )
                 }
             }
         }
-
         stage('Code Analysis') {
             steps {
-                echo 'Code Analysis'
-                echo 'It is basically a quality assurance stage that improves code quality and reduces risks.'
-                echo 'ESLint:'
-                echo 'A tool for analyzing JavaScript code for style issues, best practices, and potential bugs.'
+                echo 'We use CodeClimate for test automation at this stage. This tool will gives you insights on your code complexity, redundancy and         test coverage.'
             }
         }
-
         stage('Security Scan') {
             steps {
-                echo 'Security scan helps identify vulnerabilities, weaknesses, and other security risks in codebases.'
-                echo 'Veracode:'
-                echo 'A scan which analyzes source code for security vulnerabilities without executing the code.'
-                echo 'Identifies common security flaws like SQL injection, XSS, and hardcoded secrets.'
-
-                script {
-                    def logFilePathSecurity = "${env.WORKSPACE}/security-output.log"
-                    bat """
-                        echo Starting security scan using Veracode... > ${logFilePathSecurity}
-                        echo Checking for SQL injection, XSS, and hardcoded secrets... >> ${logFilePathSecurity}
-                        echo Security scan completed. No critical issues found. >> ${logFilePathSecurity}
-                    """
-                }
+                echo 'In this stage, a security scan tool is used which is ConnectWise, to assess any cyber attacks. Deploy the application to a testing     This is used for quick indentification threat. Testing environment: $TESTING_ENVIRONMENT...'
             }
             post {
                 success {
-                    emailext attachmentsPattern: 'security-output.log',
-                        to: 'atharvbhandare2001@gmail.com',
-                        subject: 'Security Scan Stage Success',
-                        body: 'Build, Test, Code Analysis, and Security Scan are successful.'
-                }
-                failure {
-                    emailext attachmentsPattern: 'security-output.log',
-                        to: 'atharvbhandare2001@gmail.com',
-                        subject: 'Security Scan Stage Failure',
-                        body: 'Build, Test, Code Analysis, and Security Scan have failed.'
+                    emailext(
+    attachLog: true,
+    subject: 'Security Scan Status Email',
+    body: 'Security Scan was successful!',
+    to: 'atharvsbhandare@gmail.com'
+    )
                 }
             }
         }
-
-        stage('Deploy to staging') {
+        stage('Integration Tests') {
             steps {
-                echo 'Refers to the process of deploying an application to a production or test environment.'
-                echo 'AWS EC2 deploy:'
-                echo 'A deployment service provided by AWS that automates deploying applications to EC2 instances.'
+                sleep 10
+                echo 'The data is feeding from the system.'
             }
         }
-
-        stage('Integration Tests on Staging') {
+        stage('Deploy to Production') {
             steps {
-                echo 'Integration testing is a crucial step in the software development lifecycle'
-                echo 'Aims to verify that different components or systems work together as expected.'
-                echo 'Selenium: For automating browser-based tests, useful for testing web applications.'
-            }
-        }
-
-        stage('Deploy to production') {
-            steps {
-                echo 'Deploy the application to the production server from the staging server.'
-                echo 'The same AWS EC2 instance can be used to deploy to the production server.'
+                echo 'deploy the code to production environment: AWS EC2...'
             }
         }
     }
