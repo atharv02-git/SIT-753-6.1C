@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-        // Stage 1: Build
         stage('Build') {
             steps {
                 echo 'Build task is a stage where code is compiled into an executable format.'
@@ -11,7 +10,6 @@ pipeline {
             }
         }
 
-        // Stage 2: Unit and Integration Test
         stage('Test') {
             steps {
                 echo 'Unit Testing'
@@ -20,14 +18,14 @@ pipeline {
                 echo "Performing Integration Testing using Selenium WebDriver..."
 
                 script {
-                    def logFilePathNew = "${env.WORKSPACE}/test-output.log"
-                    sh """
-                        echo 'Starting unit testing using JUnit...' > ${logFilePathNew}
-                        echo 'Testing the feature working...' >> ${logFilePathNew}
-                        echo 'Unit testing completed and no issues found' >> ${logFilePathNew}
-                        echo '\\n\\nStarting Integration testing using Selenium WebDriver...' >> ${logFilePathNew}
-                        echo 'End to End Testing of the complete product working...' >> ${logFilePathNew}
-                        echo 'Integration testing completed and no issues found' >> ${logFilePathNew} 
+                    def logFilePathNew = "${env.WORKSPACE}\\test-output.log"
+                    bat """
+                        echo Starting unit testing using JUnit... > ${logFilePathNew}
+                        echo Testing the feature working... >> ${logFilePathNew}
+                        echo Unit testing completed and no issues found >> ${logFilePathNew}
+                        echo \\n\\nStarting Integration testing using Selenium WebDriver... >> ${logFilePathNew}
+                        echo End to End Testing of the complete product working... >> ${logFilePathNew}
+                        echo Integration testing completed and no issues found >> ${logFilePathNew}
                     """
                 }
             }
@@ -49,7 +47,6 @@ pipeline {
             }
         }
 
-        // Stage 3: Code Analysis
         stage('Code Analysis') {
             steps {
                 echo 'Code Analysis '
@@ -59,7 +56,6 @@ pipeline {
             }
         }
 
-        // Stage 4: Security Scan
         stage('Security Scan') {
             steps {
                 echo 'Security scan helps identify vulnerabilities, weaknesses, and other security risks in codebases.'
@@ -83,7 +79,6 @@ pipeline {
             }
         }
 
-        // Stage 5: Deploying
         stage('Deploy to staging') {
             steps {
                 echo 'Refers to the process of deploying an application to a production or test environment.'
@@ -92,7 +87,6 @@ pipeline {
             }
         }
 
-        // Stage 6: Integration Tests on Staging
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Integration testing is a crucial step in the software development lifecycle'
@@ -101,7 +95,6 @@ pipeline {
             }
         }
 
-        // Stage 7: Deploy to production
         stage('Deploy to production') {
             steps {
                 echo 'Deploy the application to the production server from the staging server.'
