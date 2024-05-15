@@ -34,13 +34,13 @@ pipeline {
                         emailext attachmentsPattern: 'test-output.log',
                             to: 'atharvsbhandare@gmail.com',
                             subject: 'Test Stage Email',
-                            body: 'Stage 1: Build and Stage 2: Test is successfull',
+                            body: 'Stage 1: Build and Stage 2: Test is successfull'
                     }
                     failure {
                         emailext attachmentsPattern: 'security-output.log',
                             to: 'atharvsbhandare@gmail.com',
                             subject: 'Test Stage Email',
-                            body: 'Stage 1: Build and Stage 2: Test is unsuccessfull',
+                            body: 'Stage 1: Build and Stage 2: Test is unsuccessfull'
                     }
                 }
             }
