@@ -31,10 +31,10 @@ pipeline {
             }
             post {
                 success {
-                    emailext(to: 's223650012@deakin.edu.au',
-                             subject: 'Build Status for Unit and Integration Tests',
-                             body: 'Build is $BUILD_STATUS',
-                             attachLog: true)
+                    emailext attachmentsPattern: 'test-output.log',
+                        to: 'atharvsbhandare@gmail.com',
+                        subject: 'Test Stage Email',
+                        body: 'Stage 1: Build and Stage 2: Test is successful',
                 }
                 failure {
                     emailext attachmentsPattern: 'test-output.log',
