@@ -31,14 +31,13 @@ pipeline {
             }
             post {
                 success {
-                    email attachmentsPattern: 'test-output.log',
-                        to: 'atharvsbhandare@gmail.com',
-                        subject: 'Test Stage Email',
-                        body: 'Stage 1: Build and Stage 2: Test is successful',
-                        attachLog: true
+                    emailext(to: 's223650012@deakin.edu.au',
+                             subject: 'Build Status for Unit and Integration Tests',
+                             body: 'Build is $BUILD_STATUS',
+                             attachLog: true)
                 }
                 failure {
-                    email attachmentsPattern: 'test-output.log',
+                    emailext attachmentsPattern: 'test-output.log',
                         to: 'atharvsbhandare@gmail.com',
                         subject: 'Test Stage Email',
                         body: 'Stage 1: Build and Stage 2: Test is unsuccessful'
@@ -73,13 +72,13 @@ pipeline {
             }
             post {
                 success {
-                    email attachmentsPattern: 'security-output.log',
+                    emailext attachmentsPattern: 'security-output.log',
                         to: 'atharvsbhandare@gmail.com',
                         subject: 'Security Scan Stage Success',
                         body: 'Build, Test, Code Analysis, and Security Scan are successful.'
                 }
                 failure {
-                    email attachmentsPattern: 'security-output.log',
+                    emailext attachmentsPattern: 'security-output.log',
                         to: 'atharvsbhandare@gmail.com',
                         subject: 'Security Scan Stage Failure',
                         body: 'Build, Test, Code Analysis, and Security Scan have failed.'
